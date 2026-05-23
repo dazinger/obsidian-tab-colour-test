@@ -1,32 +1,20 @@
 import { Plugin } from "obsidian";
-import { DEFAULT_SETTINGS, type Feature, type GoldilocksSettings } from "./types";
+import { DEFAULT_SETTINGS, type Feature, type Settings } from "./types";
 import { findConflictingPlugin, warnConflict } from "./conflicts";
-import { GoldilocksSettingTab } from "./settings";
-import { pluginShortcut } from "./features/pluginShortcut";
-import { pressEForEdit } from "./features/pressEForEdit";
-import { printFromMenu } from "./features/printFromMenu";
-import { newNoteInFolder } from "./features/newNoteInFolder";
+import { SettingTab } from "./settings";
 import { tabColorsRename } from "./features/tabColorsRename";
-import { compactTables } from "./features/compactTables";
-import { noteWidth } from "./features/noteWidth";
 
 export const FEATURES: Feature[] = [
-  pluginShortcut,
-  tabColorsRename,
-  newNoteInFolder,
-  printFromMenu,
-  pressEForEdit,
-  compactTables,
-  noteWidth,
+  tabColorsRename
 ];
 
-export default class GoldilocksEssentialsPlugin extends Plugin {
-  settings!: GoldilocksSettings;
+export default class ObsidianTabColourTestPlugin extends Plugin {
+  settings!: Settings;
   private loadedFeatures: Feature[] = [];
 
   async onload() {
     await this.loadSettings();
-    this.addSettingTab(new GoldilocksSettingTab(this.app, this));
+    this.addSettingTab(new SettingTab(this.app, this));
     this.app.workspace.onLayoutReady(() => this.loadFeatures());
   }
 
@@ -37,11 +25,6 @@ export default class GoldilocksEssentialsPlugin extends Plugin {
   private loadFeatures(): void {
     for (const feature of FEATURES) {
       if (!this.isFeatureEnabled(feature.id)) continue;
-      const conflict = findConflictingPlugin(this.app, feature.conflictsWith);
-      if (conflict) {
-        warnConflict(this.app, feature.name, conflict);
-        continue;
-      }
       feature.load(this);
       this.loadedFeatures.push(feature);
     }
@@ -71,7 +54,7 @@ export default class GoldilocksEssentialsPlugin extends Plugin {
   }
 
   async loadSettings(): Promise<void> {
-    const raw = (await this.loadData()) as Partial<GoldilocksSettings> | null;
+    const raw = (await this.loadData()) as Partial<Settings> | null;
     this.settings = { ...DEFAULT_SETTINGS, ...(raw ?? {}) };
   }
 
