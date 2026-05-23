@@ -4,7 +4,7 @@ End-to-end release flow, from local commit to community store listing.
 
 ## Prereqs (one-time)
 
-- Push the repo to `https://github.com/sachio222/obsidian-goldilocks-essentials` (public).
+- Push the repo to `https://github.com/dazinger/obsidian-tab-colour-test` (public).
 - In your fork of `obsidianmd/obsidian-releases`, make sure `upstream` is wired up:
   ```bash
   cd ~/dev/obsidian-plugins/obsidian-releases
@@ -51,23 +51,23 @@ End-to-end release flow, from local commit to community store listing.
    Append this entry (keep the existing comma before it):
    ```json
    {
-     "id": "goldilocks-essentials",
-     "name": "Goldilocks Essentials",
-     "author": "sachio222",
-     "description": "A curated kit of small, opt-in UX upgrades for Obsidian: tab rename/colors, smart new-note placement, print from menu, press-E-to-edit, and a plugin shortcut.",
-     "repo": "sachio222/obsidian-goldilocks-essentials"
+     "id": "obsidian-tab-colour-test",
+     "name": "Obsidian Tab Colour Test",
+     "author": "dazinger",
+     "description": "A fork of a Claude-assisted repository that attempted to add colours to tabs (among other things which are out of scope of this project) in Obsidian MD.",
+     "repo": "dazinger/obsidian-tab-colour-test"
    }
    ```
 
 3. Commit, push, and open a PR against `obsidianmd/obsidian-releases:master`:
    ```bash
    git add community-plugins.json
-   git commit -m "Add Goldilocks Essentials"
-   git push -u origin add-goldilocks-essentials
+   git commit -m "Add Obsidian Tab Colour Test"
+   git push -u origin add-obsidian-tab-colour-test
    ```
    Then open the PR via the URL in the push output.
 
-4. Wait. Reviews are slow. During the wait, share the BRAT install link on the portfolio (`sachio222/obsidian-goldilocks-essentials`).
+4. Wait. Reviews are slow. During the wait, share the BRAT install link on the portfolio (`dazinger/obsidian-tab-colour-test`).
 
 ## Subsequent releases
 
