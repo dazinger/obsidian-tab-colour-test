@@ -1,10 +1,10 @@
 {
-  "id": "goldilocks-essentials",
-  "name": "Goldilocks Essentials",
-  "version": "0.1.4",
+  "id": "obsidian-tab-colour-test",
+  "name": "Obsidian Tab Colour Test",
+  "version": "0.0.1",
   "minAppVersion": "1.0.0",
-  "description": "A curated kit of small, opt-in UX upgrades: tab rename/colors, smart new-note placement, print from menu, press-E-to-edit, compact tables, note width, and a plugin shortcut.",
-  "author": "sachio222",
-  "authorUrl": "https://github.com/sachio222",
+  "description": "A fork of a Claude-assisted repository that attempted to add colours to tabs (among other things which are out of scope of this project) in Obsidian MD.",
+  "author": "dazinger",
+  "authorUrl": "https://github.com/dazinger",
   "isDesktopOnly": false
 }
