@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-goldilocks-essentials",
-  "version": "0.1.4",
-  "description": "A curated kit of small, opt-in UX upgrades for Obsidian.",
+  "name": "obsidian-tab-colour-test",
+  "version": "0.0.1",
+  "description": "A fork of a Claude-assisted repository that attempted to add colours to tabs (among other things which are out of scope of this project) in Obsidian MD.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
@@ -13,7 +13,7 @@
     "plugin",
     "utilities"
   ],
-  "author": "sachio222",
+  "author": "dazinger",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
