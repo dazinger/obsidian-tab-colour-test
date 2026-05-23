@@ -43,4 +43,4 @@ fi
 ln -s "$PLUGIN_DIR" "$TARGET"
 echo "[new]  $VAULT — linked"
 echo
-echo "Next: open the vault in Obsidian and enable 'Goldilocks Essentials' in Community Plugins."
+echo "Manual install successful."
