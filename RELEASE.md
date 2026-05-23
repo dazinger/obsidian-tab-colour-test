@@ -45,7 +45,7 @@ End-to-end release flow, from local commit to community store listing.
 
 2. Branch and add the entry to the **end** of `community-plugins.json`:
    ```bash
-   git checkout -b add-goldilocks-essentials
+   git checkout -b add-obsidian-tab-colour-test
    ```
 
    Append this entry (keep the existing comma before it):
