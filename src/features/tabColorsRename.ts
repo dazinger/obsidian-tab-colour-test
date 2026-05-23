@@ -1,5 +1,5 @@
 import { App, Menu, Modal, Notice, TFile, WorkspaceLeaf } from "obsidian";
-import type GoldilocksEssentialsPlugin from "../main";
+import type ObsidianTabColoursTestPlugin from "../main";
 import type { Feature } from "../types";
 
 const TAB_COLORS: { name: string; value: string }[] = [
@@ -43,7 +43,7 @@ class RenameModal extends Modal {
   onOpen() {
     this.titleEl.setText(this.heading);
     this.inputEl = this.contentEl.createEl("input", { type: "text", value: this.currentName });
-    this.inputEl.addClass("goldilocks-rename-input");
+    this.inputEl.addClass("rename-input");
     window.setTimeout(() => {
       this.inputEl.focus();
       this.inputEl.select();
@@ -56,7 +56,7 @@ class RenameModal extends Modal {
       if (e.key === "Escape") this.close();
     });
     const btns = this.contentEl.createDiv();
-    btns.addClass("goldilocks-modal-buttons");
+    btns.addClass("modal-buttons");
     btns.createEl("button", { text: "Cancel" }).addEventListener("click", () => this.close());
     btns.createEl("button", { text: "Rename", cls: "mod-cta" }).addEventListener("click", () => this.submit());
   }
@@ -71,7 +71,7 @@ class RenameModal extends Modal {
   }
 }
 
-function findLeafByTabHeader(plugin: GoldilocksEssentialsPlugin, el: HTMLElement): LeafWithTabHeader | null {
+function findLeafByTabHeader(plugin: ObsidianTabColoursTestPlugin, el: HTMLElement): LeafWithTabHeader | null {
   let found: LeafWithTabHeader | null = null;
   plugin.app.workspace.iterateAllLeaves((leaf) => {
     if (found) return;
@@ -80,7 +80,7 @@ function findLeafByTabHeader(plugin: GoldilocksEssentialsPlugin, el: HTMLElement
   return found;
 }
 
-function applyCustomTitle(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader): void {
+function applyCustomTitle(plugin: ObsidianTabColoursTestPlugin, leaf: LeafWithTabHeader): void {
   if (!leaf.id) return;
   const title = plugin.settings.customTitles[leaf.id];
   if (!title || !leaf.view) return;
@@ -91,7 +91,7 @@ function applyCustomTitle(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabH
   leaf.updateHeader?.();
 }
 
-function applyTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader): void {
+function applyTabColor(plugin: ObsidianTabColoursTestPlugin, leaf: LeafWithTabHeader): void {
   if (!leaf.id) return;
   const color = plugin.settings.tabColors[leaf.id];
   if (!color || !leaf.tabHeaderEl) return;
@@ -99,7 +99,7 @@ function applyTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHead
   leaf.tabHeaderEl.classList.add("has-tab-color");
 }
 
-function clearTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader): void {
+function clearTabColor(plugin: ObsidianTabColoursTestPlugin, leaf: LeafWithTabHeader): void {
   if (!leaf.id) return;
   delete plugin.settings.tabColors[leaf.id];
   void plugin.saveSettings();
@@ -110,7 +110,7 @@ function clearTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHead
   new Notice("Tab color removed");
 }
 
-function setTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader, color: string): void {
+function setTabColor(plugin: ObsidianTabColoursTestPlugin, leaf: LeafWithTabHeader, color: string): void {
   if (!leaf.id) return;
   plugin.settings.tabColors[leaf.id] = color;
   void plugin.saveSettings();
@@ -118,7 +118,7 @@ function setTabColor(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader
   new Notice("Tab color set");
 }
 
-function promptTabRename(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHeader): void {
+function promptTabRename(plugin: ObsidianTabColoursTestPlugin, leaf: LeafWithTabHeader): void {
   if (!leaf.id) return;
   const current = plugin.settings.customTitles[leaf.id] ?? leaf.getDisplayText();
   new RenameModal(plugin.app, "Rename tab", current, (newTitle) => {
@@ -131,7 +131,7 @@ function promptTabRename(plugin: GoldilocksEssentialsPlugin, leaf: LeafWithTabHe
   }).open();
 }
 
-function promptFileRename(plugin: GoldilocksEssentialsPlugin, file: TFile): void {
+function promptFileRename(plugin: ObsidianTabColoursTestPlugin, file: TFile): void {
   new RenameModal(plugin.app, "Rename file", file.basename, (newName) => {
     if (!newName || newName === file.basename) return;
     const newPath = file.parent
@@ -147,7 +147,7 @@ function promptFileRename(plugin: GoldilocksEssentialsPlugin, file: TFile): void
   }).open();
 }
 
-function addTabMenuItems(plugin: GoldilocksEssentialsPlugin, menu: Menu, leaf: LeafWithTabHeader): void {
+function addTabMenuItems(plugin: ObsidianTabColoursTestPlugin, menu: Menu, leaf: LeafWithTabHeader): void {
   menu.addSeparator();
   menu.addItem((item) => {
     item.setTitle("Rename tab").setIcon("pencil").onClick(() => promptTabRename(plugin, leaf));
@@ -169,7 +169,7 @@ function addTabMenuItems(plugin: GoldilocksEssentialsPlugin, menu: Menu, leaf: L
   });
 }
 
-function applyAll(plugin: GoldilocksEssentialsPlugin): void {
+function applyAll(plugin: ObsidianTabColoursTestPlugin): void {
   plugin.app.workspace.iterateAllLeaves((leaf) => {
     const l = leaf as LeafWithTabHeader;
     if (!l.id) return;
@@ -184,7 +184,7 @@ export const tabColorsRename: Feature = {
   description: "Right-click any tab to rename it or pick a color. Rename command in the palette.",
   conflictsWith: ["tab-rename"],
 
-  load(plugin: GoldilocksEssentialsPlugin) {
+  load(plugin: ObsidianTabColoursTestPlugin) {
     plugin.registerEvent(
       plugin.app.workspace.on("file-menu", (menu, file, _source, leaf) => {
         if (!(file instanceof TFile)) return;
@@ -246,7 +246,7 @@ export const tabColorsRename: Feature = {
     plugin.registerEvent(plugin.app.workspace.on("layout-change", () => applyAll(plugin)));
   },
 
-  unload(plugin: GoldilocksEssentialsPlugin) {
+  unload(plugin: ObsidianTabColoursTestPlugin) {
     if (savedShowAtMouseEvent) {
       Object.defineProperty(Menu.prototype, "showAtMouseEvent", savedShowAtMouseEvent);
       savedShowAtMouseEvent = null;

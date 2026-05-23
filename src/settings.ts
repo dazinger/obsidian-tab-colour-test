@@ -1,5 +1,5 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
-import type Plugin from "./main";
+import type ObsidianTabColoursTestPlugin from "./main";
 import { FEATURES } from "./main";
 
 export class SettingTab extends PluginSettingTab {

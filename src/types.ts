@@ -1,4 +1,4 @@
-import type Plugin from "./main";
+import type ObsidianTabColoursTestPlugin from "./main";
 
 export interface Feature {
   id: string;
